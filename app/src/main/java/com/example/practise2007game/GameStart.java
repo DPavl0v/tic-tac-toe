@@ -46,14 +46,18 @@ public class GameStart extends AppCompatActivity {
     ArrayList<Integer> numbers = new ArrayList(9);
     int number;
     boolean endGame = false;
+    boolean playerWin = false;
+    String result;
 
 
     ArrayList<ImageButton> arrayListButtons = new ArrayList<>(9);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
+
 
         for (int i = 1; i < 10; i++) {
             numbers.add(i);
@@ -93,7 +97,6 @@ public class GameStart extends AppCompatActivity {
         arrayListButtons.add(imageButton9);
 
 
-
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +106,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(1));
                 array1[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
                 }
             }
@@ -117,9 +120,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(2));
                 array1[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,9 +134,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(3));
                 array1[2] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton4.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,9 +148,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(4));
                 array2[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton5.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,9 +162,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(5));
                 array2[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton6.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,9 +176,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(6));
                 array2[2] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton7.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,9 +190,10 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(7));
                 array3[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
-                }            }
+                }
+            }
         });
         imageButton8.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +204,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(8));
                 array3[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame == false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
                 }
             }
@@ -209,7 +218,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(9));
                 array3[2] = 1;
                 checkGameOver(array1, array2, array3);
-                if(endGame== false) {
+                if (endGame == false) {
                     machineTurn(hashmap);
                 }
             }
@@ -218,10 +227,13 @@ public class GameStart extends AppCompatActivity {
     }
 
     public void checkGameOver(int[] array1, int[] array2, int[] array3) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(GameStart.this);
+        AlertDialog.Builder builderWin = new AlertDialog.Builder(GameStart.this);
+        AlertDialog.Builder builderLose = new AlertDialog.Builder(GameStart.this);
+        AlertDialog.Builder builderDraw = new AlertDialog.Builder(GameStart.this);
+        AlertDialog alertDialog;
 
 
-        builder.setMessage("Game over! \n" +
+        builderWin.setMessage("Congratulations! You Win!" + " \n" +
                 "Wanna try again?")
                 .setCancelable(false)
                 .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
@@ -236,6 +248,39 @@ public class GameStart extends AppCompatActivity {
                 System.exit(0);
             }
         });
+        builderLose.setMessage("Game over! You Lose!" + " \n" +
+                "Wanna try again?")
+                .setCancelable(false)
+                .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        restartGame();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+
+
+        builderDraw .setMessage("Draw!" + " \n" +
+                "Wanna try again?")
+                .setCancelable(false)
+                .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        restartGame();
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+
         if (array1[0] == 1 && array1[1] == 1 && array1[2] == 1 ||
                 array2[0] == 1 && array2[1] == 1 && array2[2] == 1 ||
                 array3[0] == 1 && array3[1] == 1 && array3[2] == 1 ||
@@ -245,29 +290,32 @@ public class GameStart extends AppCompatActivity {
                 array1[1] == 1 && array2[1] == 1 && array3[1] == 1 ||
                 array1[2] == 1 && array2[2] == 1 && array3[2] == 1) {
 
+            result = "Win";
             endGame = true;
             scorePlayer++;
-            AlertDialog alertDialog = builder.create();
+            playerWin = true;
+            alertDialog = builderWin.create();
             alertDialog.show();
 
 
         }
 
-            if (array1[0] == 2 && array1[1] == 2 && array1[2] == 2 ||
-                    array2[0] == 2 && array2[1] == 2 && array2[2] == 2 ||
-                    array3[0] == 2 && array3[1] == 2 && array3[2] == 2 ||
-                    array1[0] == 2 && array2[1] == 2 && array3[2] == 2 ||
-                    array1[2] == 2 && array2[1] == 2 && array3[0] == 2 ||
-                    array1[0] == 2 && array2[0] == 2 && array3[0] == 2 ||
-                    array1[1] == 2 && array2[1] == 2 && array3[1] == 2 ||
-                    array1[2] == 2 && array2[2] == 2 && array3[2] == 2) {
-                scoreBot++;
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+        if (array1[0] == 2 && array1[1] == 2 && array1[2] == 2 ||
+                array2[0] == 2 && array2[1] == 2 && array2[2] == 2 ||
+                array3[0] == 2 && array3[1] == 2 && array3[2] == 2 ||
+                array1[0] == 2 && array2[1] == 2 && array3[2] == 2 ||
+                array1[2] == 2 && array2[1] == 2 && array3[0] == 2 ||
+                array1[0] == 2 && array2[0] == 2 && array3[0] == 2 ||
+                array1[1] == 2 && array2[1] == 2 && array3[1] == 2 ||
+                array1[2] == 2 && array2[2] == 2 && array3[2] == 2) {
+            scoreBot++;
+            result = "Lose";
+            alertDialog = builderLose.create();
+            alertDialog.show();
+        }
 
         if (numbers.size() == 0) {
-            AlertDialog alertDialog = builder.create();
+             alertDialog = builderDraw.create();
             alertDialog.show();
 
         }
@@ -285,6 +333,8 @@ public class GameStart extends AppCompatActivity {
         imageButton7.setImageResource(R.drawable.ic_launcher_background);
         imageButton8.setImageResource(R.drawable.ic_launcher_background);
         imageButton9.setImageResource(R.drawable.ic_launcher_background);
+
+
         imageButton1.setClickable(true);
         imageButton2.setClickable(true);
         imageButton3.setClickable(true);
@@ -294,11 +344,16 @@ public class GameStart extends AppCompatActivity {
         imageButton7.setClickable(true);
         imageButton8.setClickable(true);
         imageButton9.setClickable(true);
+
         array1 = new int[]{0, 0, 0};
         array2 = new int[]{0, 0, 0};
         array3 = new int[]{0, 0, 0};
+
+
         numbers.clear();
+
         hashmap.clear();
+
         hashmap.put(1, imageButton1);
         hashmap.put(2, imageButton2);
         hashmap.put(3, imageButton3);
@@ -308,10 +363,13 @@ public class GameStart extends AppCompatActivity {
         hashmap.put(7, imageButton7);
         hashmap.put(8, imageButton8);
         hashmap.put(9, imageButton9);
+
         for (int i = 1; i < 10; i++) {
             numbers.add(i);
         }
+
         txtResult.setText(scorePlayer + " : " + scoreBot);
+
         endGame = false;
     }
 
