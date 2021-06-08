@@ -40,24 +40,23 @@ public class GameStart extends AppCompatActivity {
 
     Map<Integer, ImageButton> hashmap = new HashMap<>();
 
-    int scoreBot = 0;
-    int scorePlayer = 0;
+    int scoreBot;
+    int scorePlayer;
 
     ArrayList<Integer> numbers = new ArrayList(9);
     int number;
-    boolean endGame = false;
-    boolean playerWin = false;
+    boolean endGame;
+    boolean playerWin;
     String result;
 
 
     ArrayList<ImageButton> arrayListButtons = new ArrayList<>(9);
+    void init(){
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_start);
-
+        scoreBot = 0;
+        scorePlayer = 0;
+        endGame = false;
+        playerWin = false;
 
         for (int i = 1; i < 10; i++) {
             numbers.add(i);
@@ -73,7 +72,6 @@ public class GameStart extends AppCompatActivity {
         imageButton9 = findViewById(R.id.imgBtn9);
         txtResult = findViewById(R.id.txtResult);
         txtScore = findViewById(R.id.txtScore);
-        txtResult.setText(scoreBot + " :  " + scorePlayer);
 
 
         hashmap.put(1, imageButton1);
@@ -96,6 +94,20 @@ public class GameStart extends AppCompatActivity {
         arrayListButtons.add(imageButton8);
         arrayListButtons.add(imageButton9);
 
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game_start);
+        init();
+
+        txtResult.setText( "You: " + scorePlayer + " Opponent: " + scoreBot);
+
+
+
+
 
         imageButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +118,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(1));
                 array1[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -120,7 +132,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(2));
                 array1[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -134,7 +146,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(3));
                 array1[2] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -148,7 +160,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(4));
                 array2[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -162,7 +174,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(5));
                 array2[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -190,7 +202,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(7));
                 array3[0] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -204,7 +216,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(8));
                 array3[1] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -218,7 +230,7 @@ public class GameStart extends AppCompatActivity {
                 numbers.remove(numbers.indexOf(9));
                 array3[2] = 1;
                 checkGameOver(array1, array2, array3);
-                if (endGame == false) {
+                if (!endGame) {
                     machineTurn(hashmap);
                 }
             }
@@ -368,7 +380,7 @@ public class GameStart extends AppCompatActivity {
             numbers.add(i);
         }
 
-        txtResult.setText(scorePlayer + " : " + scoreBot);
+        txtResult.setText( "You: " + scorePlayer + " Opponent: " + scoreBot);
 
         endGame = false;
     }
